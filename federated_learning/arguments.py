@@ -40,7 +40,7 @@ class Arguments:
         self.round_worker_selection_strategy_kwargs = None
 
         self.save_model = True
-        self.save_epoch_interval = 1
+        self.save_epoch_interval = 200
         self.save_model_path = "models"
         self.epoch_save_start_suffix = "start"
         self.epoch_save_end_suffix = "end"
