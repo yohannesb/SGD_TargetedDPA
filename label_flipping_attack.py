@@ -4,6 +4,7 @@ from federated_learning.utils import replace_1_with_9
 from federated_learning.utils import replace_4_with_6
 from federated_learning.utils import replace_1_with_3
 from federated_learning.utils import replace_6_with_0
+from federated_learning.utils import default_no_change
 from federated_learning.worker_selection import RandomSelectionStrategy
 from server import run_exp
 
@@ -15,7 +16,7 @@ if __name__ == '__main__':
     # NUM_EXP = 10
     # NUM_POISONED_WORKERS = 5
     NUM_POISONED_WORKERS = 0
-    REPLACEMENT_METHOD = replace_5_with_3
+    REPLACEMENT_METHOD = default_no_change
     KWARGS = {
         #"NUM_WORKERS_PER_ROUND" : 1
         "NUM_WORKERS_PER_ROUND" : 5
