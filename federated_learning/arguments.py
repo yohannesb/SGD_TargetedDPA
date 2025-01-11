@@ -17,7 +17,7 @@ class Arguments:
         self.logger = logger
 
         self.batch_size = 10
-        self.test_batch_size = 1000
+        self.test_batch_size = 10000
         self.epochs = 200
         self.lr = 0.01
         # self.lr = 1e-4  #for Adam
@@ -45,8 +45,8 @@ class Arguments:
         self.epoch_save_start_suffix = "start"
         self.epoch_save_end_suffix = "end"
 
-        self.num_workers = 50
-        self.num_poisoned_workers = 10
+        self.num_workers = 1
+        self.num_poisoned_workers = 1
 
         # self.num_workers = 1
         # self.num_poisoned_workers = 0
