@@ -19,7 +19,7 @@ if __name__ == '__main__':
     REPLACEMENT_METHOD = default_no_change
     KWARGS = {
         #"NUM_WORKERS_PER_ROUND" : 1
-        "NUM_WORKERS_PER_ROUND" : 5
+        "NUM_WORKERS_PER_ROUND" : 1
     }
 
     for experiment_id in range(START_EXP_IDX, START_EXP_IDX + NUM_EXP):
