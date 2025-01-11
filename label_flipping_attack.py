@@ -15,8 +15,8 @@ if __name__ == '__main__':
     # START_EXP_IDX = 3000
     # NUM_EXP = 10
     # NUM_POISONED_WORKERS = 5
-    NUM_POISONED_WORKERS = 0
-    REPLACEMENT_METHOD = default_no_change
+    NUM_POISONED_WORKERS = 10
+    REPLACEMENT_METHOD = replace_5_with_3
     KWARGS = {
         #"NUM_WORKERS_PER_ROUND" : 1
         "NUM_WORKERS_PER_ROUND" : 1
