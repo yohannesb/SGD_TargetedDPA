@@ -19,8 +19,8 @@ class Arguments:
         self.batch_size = 10
         self.test_batch_size = 10000
         self.epochs = 200
-        self.lr = 0.01
-        # self.lr = 1e-4  #for Adam
+        #self.lr = 0.01
+        self.lr = 1e-4  #for Adam
         self.momentum = 0.5
         self.cuda = True
         self.shuffle = False
@@ -32,9 +32,9 @@ class Arguments:
         self.min_lr = 1e-10
 
         #Adam
-        # self.beta1 = 0.9
-        # self.beta2 = 0.999
-        # self.eps = 1e-8
+        self.beta1 = 0.9
+        self.beta2 = 0.999
+        self.eps = 1e-8
 
         self.round_worker_selection_strategy = None
         self.round_worker_selection_strategy_kwargs = None
@@ -107,14 +107,14 @@ class Arguments:
     
 
     ##########################
-    # def get_beta1(self):
-    #     return self.beta1
+    def get_beta1(self):
+        return self.beta1
     
-    # def get_beta2(self):
-    #     return self.beta2
+    def get_beta2(self):
+        return self.beta2
     
-    # def get_eps(self):
-    #     return self.eps
+    def get_eps(self):
+        return self.eps
     
     ##########################
 
