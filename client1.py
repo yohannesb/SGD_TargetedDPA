@@ -27,27 +27,18 @@ class Client:
         self.set_net(self.load_default_model())
 
         self.loss_function = self.args.get_loss_function()()
-        self.optimizer = optim.SGD(self.net.parameters(),
-            lr=self.args.get_learning_rate(),
-            momentum=self.args.get_momentum())
+        
+        # Use Adam optimizer
+        self.optimizer = optim.Adam(self.net.parameters(),
+            lr=self.args.get_learning_rate(),  # Learning rate
+            betas=(self.args.get_beta1(), self.args.get_beta2()),  # Adam's beta parameters
+            eps=self.args.get_eps())  # Epsilon value
+        
+        # Scheduler remains the same
         self.scheduler = MinCapableStepLR(self.args.get_logger(), self.optimizer,
             self.args.get_scheduler_step_size(),
             self.args.get_scheduler_gamma(),
             self.args.get_min_lr())
-
-
-        # #Adam
-        # self.optimizer = optim.Adam(
-        #     self.net.parameters(),
-        #     lr=self.args.get_learning_rate(),  # Learning rate
-        #     betas=(self.args.get_beta1(), self.args.get_beta2()),  # Adam's beta parameters
-        #     #betas=(0.9, 0.999),
-        #     eps=self.args.get_eps())  # Epsilon value
-        #     #eps= 1e-8)
-        # self.scheduler = MinCapableStepLR(self.args.get_logger(), self.optimizer,
-        #      self.args.get_scheduler_step_size(),
-        #      self.args.get_scheduler_gamma(),
-        #      self.args.get_min_lr())
 
         self.train_data_loader = train_data_loader
         self.test_data_loader = test_data_loader
@@ -97,6 +88,7 @@ class Client:
                 self.args.get_logger().warning("Couldn't load model. Attempting to map CUDA tensors to CPU to solve error.")
 
                 model.load_state_dict(torch.load(model_file_path, map_location=torch.device('cpu')))
+
         else:
             self.args.get_logger().warning("Could not find model: {}".format(model_file_path))
 
@@ -156,16 +148,6 @@ class Client:
 
         self.scheduler.step()
 
-
-        #     # Print statistics
-        #     running_loss += loss.item()
-        #     if i % self.args.get_log_interval() == 0:
-        #         avg_loss = running_loss / self.args.get_log_interval()
-        #         self.args.get_logger().info(f'Epoch [{epoch}], Step [{i}], Loss: {avg_loss:.3f}')
-        #         running_loss = 0.0
-                
-        # self.scheduler.step()
-
         # save model
         if self.args.should_save_model(epoch):
             self.save_model(epoch, self.args.get_epoch_save_end_suffix())
@@ -178,10 +160,13 @@ class Client:
         """
         self.args.get_logger().debug("Saving model to flat file storage. Save #{}", epoch)
 
-        if not os.path.exists(self.args.get_save_model_folder_path()):
-            os.mkdir(self.args.get_save_model_folder_path())
+        # Specify the Kaggle working folder path
+        save_folder = '/kaggle/working/models'
 
-        full_save_path = os.path.join(self.args.get_save_model_folder_path(), "model_" + str(self.client_idx) + "_" + str(epoch) + "_" + suffix + ".model")
+        if not os.path.exists(save_folder):
+            os.mkdir(save_folder)
+
+        full_save_path = os.path.join(save_folder, "model_" + str(self.client_idx) + "_" + str(epoch) + "_" + suffix + ".model")
         torch.save(self.get_nn_parameters(), full_save_path)
 
     def calculate_class_precision(self, confusion_mat):
@@ -231,4 +216,19 @@ class Client:
         self.args.get_logger().debug("Class precision: {}".format(str(class_precision)))
         self.args.get_logger().debug("Class recall: {}".format(str(class_recall)))
 
+        # Save classification report
+        self.save_classification_report(classification_report(targets_, pred_))
+
         return accuracy, loss, class_precision, class_recall
+
+    def save_classification_report(self, classification_report_str):
+        """
+        Saves the classification report to a file.
+        """
+        save_folder = '/kaggle/working/reports'
+        if not os.path.exists(save_folder):
+            os.mkdir(save_folder)
+        
+        report_path = os.path.join(save_folder, f'classification_report_{self.client_idx}.txt')
+        with open(report_path, 'w') as f:
+            f.write(classification_report_str)
