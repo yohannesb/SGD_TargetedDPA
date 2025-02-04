@@ -161,7 +161,7 @@ class Client:
         self.args.get_logger().debug("Saving model to flat file storage. Save #{}", epoch)
 
         # Specify the Kaggle working folder path
-        save_folder = '/kaggle/working/models'
+        save_folder = '/kaggle/working/3000_models'
 
         if not os.path.exists(save_folder):
             os.mkdir(save_folder)
