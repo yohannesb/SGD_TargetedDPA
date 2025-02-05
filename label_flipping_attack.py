@@ -10,7 +10,7 @@ from server import run_exp
 
 if __name__ == '__main__':
     START_EXP_IDX = 3000
-    NUM_EXP = 10
+    NUM_EXP = 1
     
     # START_EXP_IDX = 3000
     # NUM_EXP = 10
