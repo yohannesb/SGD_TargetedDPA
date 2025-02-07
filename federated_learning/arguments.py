@@ -19,8 +19,8 @@ class Arguments:
         self.batch_size = 10
         self.test_batch_size = 10000
         self.epochs = 200
-        #self.lr = 0.01
-        self.lr = 0.0001  #for Adam
+        self.lr = 0.01
+        #self.lr = 0.0001  #for Adam
         self.momentum = 0.5
         self.cuda = True
         self.shuffle = False
@@ -32,9 +32,9 @@ class Arguments:
         self.min_lr = 1e-10
 
         #Adam
-        self.beta1 = 0.9
-        self.beta2 = 0.999
-        self.eps = 1e-8
+        # self.beta1 = 0.9
+        # self.beta2 = 0.999
+        # self.eps = 1e-8
 
         self.round_worker_selection_strategy = None
         self.round_worker_selection_strategy_kwargs = None
@@ -46,7 +46,7 @@ class Arguments:
         self.epoch_save_end_suffix = "end"
 
         self.num_workers = 1
-        self.num_poisoned_workers = 0
+        self.num_poisoned_workers = 1
 
         # self.num_workers = 1
         # self.num_poisoned_workers = 0
