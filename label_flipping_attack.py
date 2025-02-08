@@ -16,7 +16,7 @@ if __name__ == '__main__':
     # NUM_EXP = 10
     # NUM_POISONED_WORKERS = 5
     NUM_POISONED_WORKERS = 1
-    REPLACEMENT_METHOD = replace_5_with_3
+    REPLACEMENT_METHOD = default_no_change
     KWARGS = {
         #"NUM_WORKERS_PER_ROUND" : 1
         "NUM_WORKERS_PER_ROUND" : 1
