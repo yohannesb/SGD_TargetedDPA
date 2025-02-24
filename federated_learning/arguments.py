@@ -33,9 +33,9 @@ class Arguments:
         self.eps = 1e-8
 
         #Adam
-        self.beta1 = 0.9
-        self.beta2 = 0.999
-        self.eps = 1e-8
+        # self.beta1 = 0.9
+        # self.beta2 = 0.999
+        # self.eps = 1e-8
 
         self.round_worker_selection_strategy = None
         self.round_worker_selection_strategy_kwargs = None
