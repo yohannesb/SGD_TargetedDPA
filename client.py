@@ -29,10 +29,10 @@ class Client:
         self.loss_function = self.args.get_loss_function()()
         
         #Use Adam optimizer
-        # self.optimizer = optim.Adam(self.net.parameters(),
-        #     lr=self.args.get_learning_rate(),  # Learning rate
-        #     betas=(self.args.get_beta1(), self.args.get_beta2()),  # Adam's beta parameters
-        #     eps=self.args.get_eps())  # Epsilon value
+        self.optimizer = optim.Adam(self.net.parameters(),
+            lr=self.args.get_learning_rate(),  # Learning rate
+            betas=(self.args.get_beta1(), self.args.get_beta2()),  # Adam's beta parameters
+            eps=self.args.get_eps())  # Epsilon value
 
         # self.optimizer = optim.RMSprop(self.net.parameters(),
         #     lr=self.args.get_learning_rate(),  # Learning rate
@@ -41,9 +41,9 @@ class Client:
         #     weight_decay=0,  # No weight decay (can be adjusted)
         #     momentum=self.args.get_momentum())  # Momentum term
 
-        self.optimizer = optim.SGD(self.net.parameters(),
-            lr=self.args.get_learning_rate(),
-            momentum=self.args.get_momentum())
+        # self.optimizer = optim.SGD(self.net.parameters(),
+        #     lr=self.args.get_learning_rate(),
+        #     momentum=self.args.get_momentum())
         
         # Scheduler remains the same
         self.scheduler = MinCapableStepLR(self.args.get_logger(), self.optimizer,
